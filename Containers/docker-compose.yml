@@ -1,0 +1,42 @@
+version: "2.1"
+services:
+  snackabra-channelserver:
+    container_name: "sb-channel"
+    restart: always
+    build: ../Images/Servers/channel
+    environment:
+      LEDGER_KEY: ${LEDGER_KEY}
+      SERVER_SECRET: ${SERVER_SECRET}
+      DOCKER_WS: 'true'
+    ports:
+      - "4001:4001"
+    networks:
+      - sb
+    volumes:
+      - channel_data:/app/.mf
+  snackabra-storageserver:
+    container_name: "sb-storage"
+    restart: always
+    build: ../Images/Servers/storage
+    environment:
+      LEDGER_KEY: ${LEDGER_KEY}
+      SERVER_SECRET: ${SERVER_SECRET}
+    ports:
+      - "4000:4000"
+    networks:
+      - sb
+    volumes:
+      - storage_data:/app/.mf
+  snackabra-webclient:
+    container_name: "sb-webclient"
+    build: ../Images/UI/chat
+    ports:
+      - "3000:3000"
+    networks:
+      - sb
+networks:
+  sb:
+    driver: bridge
+volumes:
+  storage_data: { }
+  channel_data: { }
