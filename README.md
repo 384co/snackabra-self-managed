@@ -18,7 +18,7 @@ Linux, MacOs or WSL
 
 Copy sample.env for your local .env 
 
-```cp ./Containers/sample.env .env```
+```cp ./Containers/sample.env ./Containers/.env```
 
 Generate your keys 
 
